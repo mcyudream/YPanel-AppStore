@@ -1,15 +1,32 @@
 {
   "php": {
-    "versions": ["8.0", "8.1"],
+    "versions": [
+      "8.0",
+      "8.1"
+    ],
     "default": "8.1",
     "extensions": {
-      "required": ["gd", "zip", "pdo_mysql"],
-      "optional": ["imagick", "opcache", "redis"]
+      "required": [
+        "gd",
+        "zip",
+        "pdo_mysql"
+      ],
+      "optional": [
+        "imagick",
+        "opcache",
+        "redis"
+      ]
     },
     "ini": {}
   },
-  "web": { "rewrite": "laravel", "root": "public" },
-  "database": { "engine": "mysql", "create": true },
+  "web": {
+    "rewrite": "laravel",
+    "root": "public"
+  },
+  "database": {
+    "engine": "mysql",
+    "create": true
+  },
   "install": [],
-  "sourceUrl": "https://gitee.com/mcyudream/YPanel-AppStore/raw/main/assets/blessing-skin-server-6.0.2.zip"
+  "sourceUrl": "assets/blessing-skin-server-6.0.2.zip"
 }
