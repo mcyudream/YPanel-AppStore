@@ -152,6 +152,35 @@
           ]
         }
       ]
+    },
+    {
+      "id": "harbor",
+      "name": "Harbor",
+      "category": "DevOps",
+      "kind": "app",
+      "description": "CNCF 毕业的云原生镜像仓库：漏洞扫描（Trivy）、镜像签名、多租户 RBAC、跨仓复制",
+      "author": "YuDream",
+      "arch": ["amd64", "arm64"],
+      "logo": "apps/harbor/logo.svg",
+      "readme": "apps/harbor/README.md",
+      "reverseProxy": "PANEL_APP_PORT",
+      "website": "https://goharbor.io",
+      "sourceUrl": "https://github.com/goharbor/harbor",
+      "document": "https://goharbor.io/docs/",
+      "versions": [
+        {
+          "id": "2.15.4",
+          "package": "apps/harbor/2.15.4/package",
+          "releaseNotes": "首版（对齐官方 v2.15.4，prepare 初始化 + 全组件）",
+          "env": [
+            { "key": "HARBOR_HOSTNAME", "label": "访问主机名（docker login 用 IP 或域名，勿填 localhost）", "type": "text", "default": "harbor.local", "required": true, "description": "生成的访问地址为 http://<主机名>:<端口>；配合域名反代时填该域名" },
+            { "key": "HARBOR_ADMIN_PASSWORD", "label": "admin 初始密码", "type": "password", "random": true, "required": true, "description": "仅首次安装生效，之后在 Harbor UI 修改；避免 $ 引号反引号等特殊字符" },
+            { "key": "HARBOR_DB_PASSWORD", "label": "内置数据库密码", "type": "password", "random": true, "required": true },
+            { "key": "PANEL_APP_PORT", "label": "HTTP 端口", "type": "number", "default": 30080, "rule": "paramPort", "required": true }
+          ],
+          "ports": [{ "envKey": "PANEL_APP_PORT", "default": 30080 }]
+        }
+      ]
     }
   ]
 }
