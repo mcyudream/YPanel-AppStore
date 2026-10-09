@@ -8,7 +8,10 @@
       "kind": "app",
       "description": "开箱即用的服务可用性监控（自带拨测与状态页）",
       "author": "YuDream",
-      "arch": ["amd64", "arm64"],
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
       "logo": "apps/uptime-kuma/logo.svg",
       "readme": "apps/uptime-kuma/README.md",
       "reverseProxy": "PANEL_APP_PORT",
@@ -17,7 +20,12 @@
           "id": "1.23.16",
           "package": "apps/uptime-kuma/1.23.16",
           "releaseNotes": "首版",
-          "ports": [{ "envKey": "PANEL_APP_PORT", "default": 3001 }]
+          "ports": [
+            {
+              "envKey": "PANEL_APP_PORT",
+              "default": 3001
+            }
+          ]
         }
       ]
     },
@@ -28,14 +36,22 @@
       "kind": "middleware",
       "description": "分布式内存缓存（可复用中间件）",
       "author": "YuDream",
-      "arch": ["amd64", "arm64"],
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
       "logo": "apps/memcached/logo.svg",
       "readme": "apps/memcached/README.md",
       "versions": [
         {
           "id": "1.6",
           "package": "apps/memcached/1.6",
-          "ports": [{ "envKey": "PANEL_APP_PORT", "default": 11211 }]
+          "ports": [
+            {
+              "envKey": "PANEL_APP_PORT",
+              "default": 11211
+            }
+          ]
         }
       ]
     },
@@ -46,7 +62,10 @@
       "kind": "middleware",
       "description": "图数据库（可复用中间件）",
       "author": "YuDream",
-      "arch": ["amd64", "arm64"],
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
       "logo": "apps/neo4j/logo.svg",
       "readme": "apps/neo4j/README.md",
       "reverseProxy": "PANEL_APP_PORT_HTTP",
@@ -55,11 +74,23 @@
           "id": "5.20-community",
           "package": "apps/neo4j/5.20-community",
           "env": [
-            { "key": "NEO4J_AUTH", "label": "认证（none 或 neo4j/密码）", "type": "text", "default": "neo4j/yp_neo4j_2026", "required": true }
+            {
+              "key": "NEO4J_AUTH",
+              "label": "认证（none 或 neo4j/密码）",
+              "type": "text",
+              "default": "neo4j/yp_neo4j_2026",
+              "required": true
+            }
           ],
           "ports": [
-            { "envKey": "PANEL_APP_PORT_HTTP", "default": 7474 },
-            { "envKey": "PANEL_APP_PORT_BOLT", "default": 7687 }
+            {
+              "envKey": "PANEL_APP_PORT_HTTP",
+              "default": 7474
+            },
+            {
+              "envKey": "PANEL_APP_PORT_BOLT",
+              "default": 7687
+            }
           ]
         }
       ]
@@ -71,7 +102,10 @@
       "kind": "middleware",
       "description": "Rust 实现的高性能 S3 兼容对象存储（可复用中间件）",
       "author": "YuDream",
-      "arch": ["amd64", "arm64"],
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
       "logo": "apps/rustfs/logo.png",
       "readme": "apps/rustfs/README.md",
       "reverseProxy": "PANEL_APP_PORT",
@@ -80,10 +114,27 @@
           "id": "latest",
           "package": "apps/rustfs/latest",
           "env": [
-            { "key": "RUSTFS_ACCESS_KEY", "label": "Access Key", "type": "text", "default": "ypadmin", "required": true },
-            { "key": "RUSTFS_SECRET_KEY", "label": "Secret Key", "type": "password", "default": "yp_rustfs_2026", "required": true }
+            {
+              "key": "RUSTFS_ACCESS_KEY",
+              "label": "Access Key",
+              "type": "text",
+              "default": "ypadmin",
+              "required": true
+            },
+            {
+              "key": "RUSTFS_SECRET_KEY",
+              "label": "Secret Key",
+              "type": "password",
+              "default": "yp_rustfs_2026",
+              "required": true
+            }
           ],
-          "ports": [{ "envKey": "PANEL_APP_PORT", "default": 9000 }]
+          "ports": [
+            {
+              "envKey": "PANEL_APP_PORT",
+              "default": 9000
+            }
+          ]
         }
       ]
     },
@@ -94,7 +145,10 @@
       "kind": "app",
       "description": "博客/CMS（内置 MySQL）",
       "author": "YuDream",
-      "arch": ["amd64", "arm64"],
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
       "logo": "apps/wordpress/logo.svg",
       "readme": "apps/wordpress/README.md",
       "reverseProxy": "PANEL_APP_PORT",
@@ -103,9 +157,20 @@
           "id": "6.7",
           "package": "apps/wordpress/6.7",
           "env": [
-            { "key": "WORDPRESS_DB_PASSWORD", "label": "数据库密码", "type": "password", "default": "wp_db_2026", "required": true }
+            {
+              "key": "WORDPRESS_DB_PASSWORD",
+              "label": "数据库密码",
+              "type": "password",
+              "default": "wp_db_2026",
+              "required": true
+            }
           ],
-          "ports": [{ "envKey": "PANEL_APP_PORT", "default": 8082 }]
+          "ports": [
+            {
+              "envKey": "PANEL_APP_PORT",
+              "default": 8082
+            }
+          ]
         }
       ]
     },
@@ -116,7 +181,10 @@
       "kind": "service",
       "description": "开源日志聚合与检索数据库（全字段索引、单机低资源），日志中心「集中存储」模式后端",
       "author": "YuDream",
-      "arch": ["amd64", "arm64"],
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
       "logo": "apps/victoria-logs/logo.svg",
       "readme": "apps/victoria-logs/README.md",
       "reverseProxy": "PANEL_APP_PORT",
@@ -126,9 +194,20 @@
           "package": "apps/victoria-logs/1.53.0",
           "releaseNotes": "首版",
           "env": [
-            { "key": "RETENTION_PERIOD", "label": "日志保留期（如 7d/30d/90d/180d/1y）", "type": "text", "default": "30d", "required": true }
+            {
+              "key": "RETENTION_PERIOD",
+              "label": "日志保留期（如 7d/30d/90d/180d/1y）",
+              "type": "text",
+              "default": "30d",
+              "required": true
+            }
           ],
-          "ports": [{ "envKey": "PANEL_APP_PORT", "default": 9428 }]
+          "ports": [
+            {
+              "envKey": "PANEL_APP_PORT",
+              "default": 9428
+            }
+          ]
         }
       ]
     },
@@ -139,7 +218,10 @@
       "kind": "service",
       "description": "采集本机全部容器日志推送至 VictoriaLogs 集中存储（多节点各装一份即可跨节点检索）",
       "author": "YuDream",
-      "arch": ["amd64", "arm64"],
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
       "logo": "apps/vector/logo.svg",
       "readme": "apps/vector/README.md",
       "versions": [
@@ -148,7 +230,13 @@
           "package": "apps/vector/0.49.0",
           "releaseNotes": "首版",
           "env": [
-            { "key": "VL_ENDPOINT", "label": "VictoriaLogs 地址（同网络容器名或内网IP:端口）", "type": "text", "default": "http://victoria-logs:9428", "required": true }
+            {
+              "key": "VL_ENDPOINT",
+              "label": "VictoriaLogs 地址（同网络容器名或内网IP:端口）",
+              "type": "text",
+              "default": "http://victoria-logs:9428",
+              "required": true
+            }
           ]
         }
       ]
@@ -160,7 +248,10 @@
       "kind": "app",
       "description": "CNCF 毕业的云原生镜像仓库：漏洞扫描（Trivy）、镜像签名、多租户 RBAC、跨仓复制",
       "author": "YuDream",
-      "arch": ["amd64", "arm64"],
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
       "logo": "apps/harbor/logo.svg",
       "readme": "apps/harbor/README.md",
       "reverseProxy": "PANEL_APP_PORT",
@@ -173,12 +264,44 @@
           "package": "apps/harbor/2.15.4/package",
           "releaseNotes": "首版（对齐官方 v2.15.4，prepare 初始化 + 全组件）",
           "env": [
-            { "key": "HARBOR_HOSTNAME", "label": "访问主机名（docker login 用 IP 或域名，勿填 localhost）", "type": "text", "default": "harbor.local", "required": true, "description": "生成的访问地址为 http://<主机名>:<端口>；配合域名反代时填该域名" },
-            { "key": "HARBOR_ADMIN_PASSWORD", "label": "admin 初始密码", "type": "password", "random": true, "required": true, "description": "仅首次安装生效，之后在 Harbor UI 修改；避免 $ 引号反引号等特殊字符" },
-            { "key": "HARBOR_DB_PASSWORD", "label": "内置数据库密码", "type": "password", "random": true, "required": true },
-            { "key": "PANEL_APP_PORT", "label": "HTTP 端口", "type": "number", "default": 30080, "rule": "paramPort", "required": true }
+            {
+              "key": "HARBOR_HOSTNAME",
+              "label": "访问主机名（docker login 用 IP 或域名，勿填 localhost）",
+              "type": "text",
+              "default": "harbor.local",
+              "required": true,
+              "description": "生成的访问地址为 http://<主机名>:<端口>；配合域名反代时填该域名"
+            },
+            {
+              "key": "HARBOR_ADMIN_PASSWORD",
+              "label": "admin 初始密码",
+              "type": "password",
+              "random": true,
+              "required": true,
+              "description": "仅首次安装生效，之后在 Harbor UI 修改；避免 $ 引号反引号等特殊字符"
+            },
+            {
+              "key": "HARBOR_DB_PASSWORD",
+              "label": "内置数据库密码",
+              "type": "password",
+              "random": true,
+              "required": true
+            },
+            {
+              "key": "PANEL_APP_PORT",
+              "label": "HTTP 端口",
+              "type": "number",
+              "default": 30080,
+              "rule": "paramPort",
+              "required": true
+            }
           ],
-          "ports": [{ "envKey": "PANEL_APP_PORT", "default": 30080 }]
+          "ports": [
+            {
+              "envKey": "PANEL_APP_PORT",
+              "default": 30080
+            }
+          ]
         }
       ]
     },
@@ -189,7 +312,10 @@
       "kind": "app",
       "description": "Mihomo 代理内核 + metacubexd 可视化面板：HTTP/SOCKS5 混合代理、规则/订阅、连接与节点可视化管理",
       "author": "YuDream",
-      "arch": ["amd64", "arm64"],
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
       "logo": "apps/mihomo/logo.png",
       "readme": "apps/mihomo/README.md",
       "versions": [
@@ -198,14 +324,45 @@
           "package": "apps/mihomo/1.19.32/package",
           "releaseNotes": "首版（Mihomo v1.19.32 + metacubexd v1.273.1，默认全直连最小配置）",
           "env": [
-            { "key": "PANEL_APP_PORT", "label": "代理端口（HTTP+SOCKS5 混合）", "type": "number", "default": 37890, "rule": "paramPort", "required": true },
-            { "key": "PANEL_API_PORT", "label": "外部控制器端口", "type": "number", "default": 37891, "rule": "paramPort", "required": true, "description": "metacubexd 面板连接此端口（http://<主机IP>:<端口>，密钥默认空）" },
-            { "key": "PANEL_UI_PORT", "label": "面板访问端口", "type": "number", "default": 39097, "rule": "paramPort", "required": true }
+            {
+              "key": "PANEL_APP_PORT",
+              "label": "代理端口（HTTP+SOCKS5 混合）",
+              "type": "number",
+              "default": 37890,
+              "rule": "paramPort",
+              "required": true
+            },
+            {
+              "key": "PANEL_API_PORT",
+              "label": "外部控制器端口",
+              "type": "number",
+              "default": 37891,
+              "rule": "paramPort",
+              "required": true,
+              "description": "metacubexd 面板连接此端口（http://<主机IP>:<端口>，密钥默认空）"
+            },
+            {
+              "key": "PANEL_UI_PORT",
+              "label": "面板访问端口",
+              "type": "number",
+              "default": 39097,
+              "rule": "paramPort",
+              "required": true
+            }
           ],
           "ports": [
-            { "envKey": "PANEL_APP_PORT", "default": 37890 },
-            { "envKey": "PANEL_API_PORT", "default": 37891 },
-            { "envKey": "PANEL_UI_PORT", "default": 39097 }
+            {
+              "envKey": "PANEL_APP_PORT",
+              "default": 37890
+            },
+            {
+              "envKey": "PANEL_API_PORT",
+              "default": 37891
+            },
+            {
+              "envKey": "PANEL_UI_PORT",
+              "default": 39097
+            }
           ]
         }
       ]
@@ -217,7 +374,10 @@
       "kind": "app",
       "description": "现代化 Minecraft 皮肤站：Go+Vue3，Yggdrasil 外置登录、皮肤披风 3D 预览、OIDC/Microsoft 角色绑定",
       "author": "water2004",
-      "arch": ["amd64", "arm64"],
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
       "logo": "apps/element-skin/logo.svg",
       "readme": "apps/element-skin/README.md",
       "website": "https://github.com/water2004/element-skin",
@@ -228,14 +388,60 @@
           "package": "apps/element-skin/4.0.1/package",
           "releaseNotes": "首版（对齐官方 v4.0.1 compose：backend + webhook-worker + PostgreSQL 18 + Redis 8）",
           "env": [
-            { "key": "SERVER_SITE_URL", "label": "站点访问地址", "type": "text", "default": "http://127.0.0.1:38080", "required": true, "description": "浏览器实际访问地址（含端口），CORS/OIDC/启动器依赖它；换域名或端口后改此参数并重启" },
-            { "key": "JWT_SECRET", "label": "JWT 密钥", "type": "password", "random": true, "required": true },
-            { "key": "IDENTITY_ENCRYPTION_KEY", "label": "身份加密密钥", "type": "password", "random": true, "required": true, "description": "加密 OIDC client secret 与外部 refresh token；配置过身份提供方后不可更改" },
-            { "key": "DATABASE_PASSWORD", "label": "数据库密码", "type": "password", "random": true, "required": true },
-            { "key": "REDIS_PASSWORD", "label": "Redis 密码", "type": "password", "random": true, "required": true },
-            { "key": "PANEL_APP_PORT", "label": "站点端口", "type": "number", "default": 38080, "rule": "paramPort", "required": true }
+            {
+              "key": "SERVER_SITE_URL",
+              "label": "站点访问地址",
+              "type": "text",
+              "default": "http://127.0.0.1:38080",
+              "required": true,
+              "description": "浏览器实际访问地址（含端口），CORS/OIDC/启动器依赖它；换域名或端口后改此参数并重启"
+            },
+            {
+              "key": "JWT_SECRET",
+              "label": "JWT 密钥",
+              "type": "password",
+              "random": true,
+              "required": true,
+              "randomLen": 48
+            },
+            {
+              "key": "IDENTITY_ENCRYPTION_KEY",
+              "label": "身份加密密钥",
+              "type": "password",
+              "random": true,
+              "required": true,
+              "description": "加密 OIDC client secret 与外部 refresh token；配置过身份提供方后不可更改",
+              "randomLen": 48
+            },
+            {
+              "key": "DATABASE_PASSWORD",
+              "label": "数据库密码",
+              "type": "password",
+              "random": true,
+              "required": true
+            },
+            {
+              "key": "REDIS_PASSWORD",
+              "label": "Redis 密码",
+              "type": "password",
+              "random": true,
+              "required": true
+            },
+            {
+              "key": "PANEL_APP_PORT",
+              "label": "站点端口",
+              "type": "number",
+              "default": 38080,
+              "rule": "paramPort",
+              "required": true
+            }
           ],
-          "ports": [{ "envKey": "PANEL_APP_PORT", "default": 38080 }]
+          "ports": [
+            {
+              "envKey": "PANEL_APP_PORT",
+              "default": 38080
+            }
+          ]
         }
       ]
     }
