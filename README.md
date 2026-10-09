@@ -44,6 +44,10 @@ apps/<id>/<version>/package/   # 版本包目录（compose.yml + 附属文件，
 - 版本包内文件统一纯文本（compose/配置模板），单文件 ≤2MB、总数 ≤200
 - compose 文件名支持 `compose.yml` / `docker-compose.yml` 等，部署时统一落为 `docker-compose.yml`
 
+## 图标版权
+
+`apps/*/logo.*` 为各应用项目的品牌标识，版权归各自项目所有，仅用于应用商店中标识对应软件（参考 1Panel 等面板商店的惯例）。来源：优先取项目官方仓库/官网，部分取自 [dashboard-icons](https://github.com/homarr-labs/dashboard-icons) 与 iconify logos 集合。
+
 ## 维护（提交者）
 
 本地仓库挂双 remote，每次更新同时推送两边，保持一致：

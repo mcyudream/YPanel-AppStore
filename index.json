@@ -72,7 +72,7 @@
       "description": "Rust 实现的高性能 S3 兼容对象存储（可复用中间件）",
       "author": "YuDream",
       "arch": ["amd64", "arm64"],
-      "logo": "apps/rustfs/logo.svg",
+      "logo": "apps/rustfs/logo.png",
       "readme": "apps/rustfs/README.md",
       "reverseProxy": "PANEL_APP_PORT",
       "versions": [
