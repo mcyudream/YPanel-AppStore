@@ -468,6 +468,30 @@
           "env": []
         }
       ]
+    },
+    {
+      "id": "blessing-skin",
+      "name": "Blessing Skin",
+      "category": "游戏",
+      "kind": "php",
+      "description": "Minecraft 皮肤站：材质/披风托管、3D 预览、外置登录，插件生态丰富（官方 6.0.2 发行版）",
+      "author": "bs-community",
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
+      "logo": "apps/blessing-skin/logo.png",
+      "readme": "apps/blessing-skin/README.md",
+      "website": "https://blessing.netlify.app",
+      "sourceUrl": "https://github.com/bs-community/blessing-skin-server",
+      "versions": [
+        {
+          "id": "6.0.2",
+          "package": "apps/blessing-skin/6.0.2/package",
+          "releaseNotes": "首版（官方 6.0.2 发行包，Laravel 拓扑自动配置，支持纳管 MySQL）",
+          "env": []
+        }
+      ]
     }
   ]
 }
