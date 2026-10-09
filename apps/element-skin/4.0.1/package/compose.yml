@@ -36,7 +36,7 @@ services:
       - 1panel-network
 
   backend:
-    image: ghcr.io/water2004/element-skin:v4.0.1
+    image: ghcr.io/water2004/element-skin:4.0.1
     container_name: ${CONTAINER_NAME}
     restart: unless-stopped
     environment: &backend-environment
@@ -90,7 +90,7 @@ services:
 
   # Webhook 投递 Worker（与 backend 同镜像，不暴露端口；未使用 Webhook 时空转，开销极小）
   webhook-worker:
-    image: ghcr.io/water2004/element-skin:v4.0.1
+    image: ghcr.io/water2004/element-skin:4.0.1
     container_name: ${CONTAINER_NAME}-worker
     restart: unless-stopped
     environment:
