@@ -209,6 +209,35 @@
           ]
         }
       ]
+    },
+    {
+      "id": "element-skin",
+      "name": "Element Skin",
+      "category": "游戏",
+      "kind": "app",
+      "description": "现代化 Minecraft 皮肤站：Go+Vue3，Yggdrasil 外置登录、皮肤披风 3D 预览、OIDC/Microsoft 角色绑定",
+      "author": "water2004",
+      "arch": ["amd64", "arm64"],
+      "logo": "apps/element-skin/logo.svg",
+      "readme": "apps/element-skin/README.md",
+      "website": "https://github.com/water2004/element-skin",
+      "sourceUrl": "https://github.com/water2004/element-skin",
+      "versions": [
+        {
+          "id": "4.0.1",
+          "package": "apps/element-skin/4.0.1/package",
+          "releaseNotes": "首版（对齐官方 v4.0.1 compose：backend + webhook-worker + PostgreSQL 18 + Redis 8）",
+          "env": [
+            { "key": "SERVER_SITE_URL", "label": "站点访问地址", "type": "text", "default": "http://127.0.0.1:38080", "required": true, "description": "浏览器实际访问地址（含端口），CORS/OIDC/启动器依赖它；换域名或端口后改此参数并重启" },
+            { "key": "JWT_SECRET", "label": "JWT 密钥", "type": "password", "random": true, "required": true },
+            { "key": "IDENTITY_ENCRYPTION_KEY", "label": "身份加密密钥", "type": "password", "random": true, "required": true, "description": "加密 OIDC client secret 与外部 refresh token；配置过身份提供方后不可更改" },
+            { "key": "DATABASE_PASSWORD", "label": "数据库密码", "type": "password", "random": true, "required": true },
+            { "key": "REDIS_PASSWORD", "label": "Redis 密码", "type": "password", "random": true, "required": true },
+            { "key": "PANEL_APP_PORT", "label": "站点端口", "type": "number", "default": 38080, "rule": "paramPort", "required": true }
+          ],
+          "ports": [{ "envKey": "PANEL_APP_PORT", "default": 38080 }]
+        }
+      ]
     }
   ]
 }

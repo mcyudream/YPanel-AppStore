@@ -1,0 +1,111 @@
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: ${CONTAINER_NAME}-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: elementskin
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: elementskin
+    volumes:
+      - ./data/db:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - 1panel-network
+
+  redis:
+    image: redis:8-alpine
+    container_name: ${CONTAINER_NAME}-redis
+    restart: unless-stopped
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    command: ["sh", "-c", "redis-server --appendonly yes --requirepass \"$${REDIS_PASSWORD}\""]
+    volumes:
+      - ./data/redis:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$${REDIS_PASSWORD}\" ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - 1panel-network
+
+  backend:
+    image: ghcr.io/water2004/element-skin:v4.0.1
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    environment: &backend-environment
+      VITE_BASE_PATH: /
+      VITE_API_BASE: /skinapi
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRE_DAYS: "7"
+      JWT_ACCESS_EXPIRE_MINUTES: "30"
+      KEYS_PRIVATE_KEY: /app/data/private.pem
+      KEYS_PUBLIC_KEY: /app/data/public.pem
+      OIDC_PRIVATE_KEY: /app/data/oidc-private.pem
+      OIDC_PUBLIC_KEY: /app/data/oidc-public.pem
+      IDENTITY_ENCRYPTION_KEY: ${IDENTITY_ENCRYPTION_KEY}
+      DATABASE_HOST: db
+      DATABASE_PORT: "5432"
+      DATABASE_USER: elementskin
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: elementskin
+      DATABASE_SSLMODE: disable
+      DATABASE_MAX_CONNECTIONS: "20"
+      WEBHOOK_WORKER_MAX_DATABASE_CONNECTIONS: "2"
+      WEBHOOK_WORKER_ACTIVE_INTERVAL_MS: "3000"
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_DB: "0"
+      REDIS_KEY_PREFIX: elementskin:
+      REDIS_PUBLIC_CACHE_TTL_SECONDS: "60"
+      REDIS_AUTH_CACHE_TTL_SECONDS: "30"
+      TEXTURES_DIRECTORY: /app/frontend/static/textures
+      CAROUSEL_DIRECTORY: /app/frontend/static/carousel
+      SERVER_HOST: 0.0.0.0
+      SERVER_PORT: "8000"
+      SERVER_SITE_URL: ${SERVER_SITE_URL}
+      SERVER_API_URL: ${SERVER_SITE_URL}/skinapi
+      CORS_ALLOW_ORIGINS: ${SERVER_SITE_URL}
+      CORS_ALLOW_CREDENTIALS: "true"
+    volumes:
+      - ./data/app:/app/data
+      - ./data/textures:/app/frontend/static/textures
+      - ./data/carousel:/app/frontend/static/carousel
+    ports:
+      - "${PANEL_APP_PORT}:8000"
+    networks:
+      - 1panel-network
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # Webhook 投递 Worker（与 backend 同镜像，不暴露端口；未使用 Webhook 时空转，开销极小）
+  webhook-worker:
+    image: ghcr.io/water2004/element-skin:v4.0.1
+    container_name: ${CONTAINER_NAME}-worker
+    restart: unless-stopped
+    environment:
+      <<: *backend-environment
+    command: ["/app/webhook-worker"]
+    volumes:
+      - ./data/app:/app/data
+    networks:
+      - 1panel-network
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+networks:
+  1panel-network:
+    external: true
