@@ -444,6 +444,30 @@
           ]
         }
       ]
+    },
+    {
+      "id": "adminer",
+      "name": "Adminer",
+      "category": "工具",
+      "kind": "php",
+      "description": "单文件 PHP 数据库管理工具（管理 MySQL/PostgreSQL/SQLite 等，PHP 应用类型首个应用）",
+      "author": "YuDream",
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
+      "logo": "apps/adminer/logo.svg",
+      "readme": "apps/adminer/README.md",
+      "website": "https://www.adminer.org",
+      "sourceUrl": "https://github.com/vrana/adminer",
+      "versions": [
+        {
+          "id": "4.8.1",
+          "package": "apps/adminer/4.8.1/package",
+          "releaseNotes": "首版（PHP 应用类型管线验收应用）",
+          "env": []
+        }
+      ]
     }
   ]
 }
