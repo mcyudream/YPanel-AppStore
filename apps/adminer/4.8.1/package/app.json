@@ -1,6 +1,10 @@
 {
   "php": {
-    "versions": ["8.2", "8.3", "8.4"],
+    "versions": [
+      "8.2",
+      "8.3",
+      "8.4"
+    ],
     "default": "8.3",
     "extensions": {
       "required": [],
@@ -8,8 +12,14 @@
     },
     "ini": {}
   },
-  "web": { "rewrite": "generic", "root": "" },
-  "database": { "engine": "", "create": false },
+  "web": {
+    "rewrite": "",
+    "root": ""
+  },
+  "database": {
+    "engine": "",
+    "create": false
+  },
   "install": [],
   "source": "source"
 }
