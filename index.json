@@ -181,6 +181,34 @@
           "ports": [{ "envKey": "PANEL_APP_PORT", "default": 30080 }]
         }
       ]
+    },
+    {
+      "id": "mihomo",
+      "name": "Mihomo (Clash Meta)",
+      "category": "网络",
+      "kind": "app",
+      "description": "Mihomo 代理内核 + metacubexd 可视化面板：HTTP/SOCKS5 混合代理、规则/订阅、连接与节点可视化管理",
+      "author": "YuDream",
+      "arch": ["amd64", "arm64"],
+      "logo": "apps/mihomo/logo.png",
+      "readme": "apps/mihomo/README.md",
+      "versions": [
+        {
+          "id": "1.19.32",
+          "package": "apps/mihomo/1.19.32/package",
+          "releaseNotes": "首版（Mihomo v1.19.32 + metacubexd v1.273.1，默认全直连最小配置）",
+          "env": [
+            { "key": "PANEL_APP_PORT", "label": "代理端口（HTTP+SOCKS5 混合）", "type": "number", "default": 37890, "rule": "paramPort", "required": true },
+            { "key": "PANEL_API_PORT", "label": "外部控制器端口", "type": "number", "default": 37891, "rule": "paramPort", "required": true, "description": "metacubexd 面板连接此端口（http://<主机IP>:<端口>，密钥默认空）" },
+            { "key": "PANEL_UI_PORT", "label": "面板访问端口", "type": "number", "default": 39097, "rule": "paramPort", "required": true }
+          ],
+          "ports": [
+            { "envKey": "PANEL_APP_PORT", "default": 37890 },
+            { "envKey": "PANEL_API_PORT", "default": 37891 },
+            { "envKey": "PANEL_UI_PORT", "default": 39097 }
+          ]
+        }
+      ]
     }
   ]
 }

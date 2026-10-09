@@ -1,0 +1,38 @@
+# Mihomo 默认最小配置——安装即可启动，替换为自己的节点/订阅后重启容器生效。
+# 本文件在应用目录 data/mihomo/config.yaml，可随时在面板文件管理中编辑。
+
+# HTTP + SOCKS5 混合代理端口（容器内端口，对应面板映射的「代理端口」）
+mixed-port: 7890
+# 允许局域网与其他容器使用代理
+allow-lan: true
+bind-address: "*"
+mode: rule
+log-level: info
+# RESTful 外部控制器（对应面板映射的「外部控制器端口」，metacubexd 面板连接用）
+external-controller: 0.0.0.0:9090
+# 控制器访问密钥，默认留空；如暴露公网务必设置，并在面板连接时填同样的值
+# secret: "改成你的密钥"
+profile:
+  store-selected: true
+
+proxies: []
+# 在此添加节点，或改用订阅 provider：
+# proxy-providers:
+#   sub:
+#     type: http
+#     url: "你的订阅链接"
+#     path: ./providers/sub.yaml
+#     interval: 86400
+#     health-check:
+#       enable: true
+#       url: https://www.gstatic.com/generate_204
+#       interval: 300
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - DIRECT
+
+rules:
+  - MATCH,DIRECT
