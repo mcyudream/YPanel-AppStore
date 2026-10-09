@@ -63,7 +63,7 @@ services:
       REDIS_PORT: "6379"
       REDIS_PASSWORD: ${REDIS_PASSWORD}
       REDIS_DB: "0"
-      REDIS_KEY_PREFIX: elementskin:
+      REDIS_KEY_PREFIX: "elementskin:"
       REDIS_PUBLIC_CACHE_TTL_SECONDS: "60"
       REDIS_AUTH_CACHE_TTL_SECONDS: "30"
       TEXTURES_DIRECTORY: /app/frontend/static/textures
