@@ -1,0 +1,19 @@
+services:
+  vector:
+    image: timberio/vector:0.49.0-alpine
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    command: ["--config", "/etc/vector/vector.toml"]
+    environment:
+      - YP_VL_ENDPOINT=${VL_ENDPOINT}
+      - VECTOR_SELF_NAME=${CONTAINER_NAME}
+    volumes:
+      - ./vector.toml:/etc/vector/vector.toml:ro
+      - ./data:/vector-data-dir
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - 1panel-network
+
+networks:
+  1panel-network:
+    external: true

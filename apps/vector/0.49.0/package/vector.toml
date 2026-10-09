@@ -1,0 +1,22 @@
+# YPanel 容器日志采集 → VictoriaLogs
+# 由应用商店安装，VL 地址与自排参数经容器环境变量注入（${VAR:-默认} 为 Vector 配置插值）。
+
+data_dir = "/vector-data-dir"
+
+[sources.docker_logs]
+type = "docker_logs"
+# 双保险排除自身：hostname=容器ID 自动排除之外，再按容器名前缀显式排除
+exclude_containers = ["${VECTOR_SELF_NAME:-vector}"]
+
+[sinks.vlogs]
+type = "elasticsearch"
+inputs = ["docker_logs"]
+endpoints = ["${YP_VL_ENDPOINT:-http://victoria-logs:9428}/insert/elasticsearch/"]
+api_version = "v8"
+compression = "gzip"
+healthcheck.enabled = false
+
+[sinks.vlogs.query]
+_msg_field = "message"
+_time_field = "timestamp"
+_stream_fields = "host,container_name,image"
