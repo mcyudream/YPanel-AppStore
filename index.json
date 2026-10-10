@@ -461,7 +461,7 @@
         "amd64",
         "arm64"
       ],
-      "logo": "apps/adminer/logo.svg",
+      "logo": "apps/adminer/logo.png",
       "readme": "apps/adminer/README.md",
       "website": "https://www.adminer.org",
       "sourceUrl": "https://github.com/vrana/adminer",
