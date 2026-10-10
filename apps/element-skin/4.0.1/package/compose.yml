@@ -78,8 +78,6 @@ services:
       - ./data/app:/app/data
       - ./data/textures:/app/frontend/static/textures
       - ./data/carousel:/app/frontend/static/carousel
-    ports:
-      - "${PANEL_APP_PORT}:8000"
     networks:
       - 1panel-network
     depends_on:
@@ -105,6 +103,19 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+
+  frontend:
+    image: nginx:alpine
+    container_name: ${CONTAINER_NAME}-frontend
+    restart: unless-stopped
+    volumes:
+      - ./nginx-default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "${PANEL_APP_PORT}:80"
+    networks:
+      - 1panel-network
+    depends_on:
+      - backend
 
 networks:
   1panel-network:
