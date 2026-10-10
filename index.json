@@ -474,7 +474,7 @@
         }
       ],
       "adminUI": {
-        "port": "PANEL_APP_PORT",
+        "port": "SITE_PORT",
         "path": "/adminer.php",
         "name": "Adminer 数据库管理"
       }
