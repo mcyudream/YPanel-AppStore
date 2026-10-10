@@ -266,34 +266,71 @@
           "env": [
             {
               "key": "HARBOR_HOSTNAME",
-              "label": "访问主机名（docker login 用 IP 或域名，勿填 localhost）",
+              "label": "访问主机名（docker login 用 IP 或域名）",
               "type": "text",
               "default": "harbor.local",
               "required": true,
-              "description": "生成的访问地址为 http://<主机名>:<端口>；配合域名反代时填该域名"
+              "description": "生成的访问地址为 http://<主机名>:<端口>"
             },
             {
               "key": "HARBOR_ADMIN_PASSWORD",
               "label": "admin 初始密码",
               "type": "password",
               "random": true,
-              "required": true,
-              "description": "仅首次安装生效，之后在 Harbor UI 修改；避免 $ 引号反引号等特殊字符"
+              "randomLen": 24,
+              "required": true
             },
             {
               "key": "HARBOR_DB_PASSWORD",
-              "label": "内置数据库密码",
+              "label": "数据库密码",
               "type": "password",
               "random": true,
+              "randomLen": 24,
               "required": true
             },
             {
-              "key": "PANEL_APP_PORT",
-              "label": "HTTP 端口",
+              "key": "HARBOR_REDIS_HOST",
+              "label": "Redis 地址",
+              "type": "text",
+              "default": "",
+              "required": true,
+              "description": "纳管 Redis 或自建 Redis 实例地址"
+            },
+            {
+              "key": "HARBOR_REDIS_PORT",
+              "label": "Redis 端口",
               "type": "number",
-              "default": 30080,
-              "rule": "paramPort",
+              "default": 6379,
               "required": true
+            },
+            {
+              "key": "HARBOR_REDIS_PASSWORD",
+              "label": "Redis 密码",
+              "type": "password",
+              "default": "",
+              "required": false
+            },
+            {
+              "key": "HARBOR_REDIS_HOST",
+              "label": "Redis 地址",
+              "type": "text",
+              "default": "",
+              "required": true,
+              "description": "纳管 Redis 或自建 Redis 实例地址"
+            },
+            {
+              "key": "HARBOR_REDIS_PORT",
+              "label": "Redis 端口",
+              "type": "number",
+              "default": 6379,
+              "required": true
+            },
+            {
+              "key": "HARBOR_REDIS_PASSWORD",
+              "label": "Redis 密码",
+              "type": "password",
+              "default": "",
+              "required": false
             }
           ],
           "ports": [
@@ -303,7 +340,12 @@
             }
           ]
         }
-      ]
+      ],
+      "adminUI": {
+        "port": "PANEL_APP_PORT",
+        "path": "/",
+        "name": "Harbor 镜像仓库"
+      }
     },
     {
       "id": "mihomo",

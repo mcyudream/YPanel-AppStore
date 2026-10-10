@@ -17,6 +17,9 @@ services:
           password: "${HARBOR_DB_PASSWORD}"
           max_idle_conns: 100
           max_open_conns: 900
+        external_redis:
+          host: "${HARBOR_REDIS_HOST}:${HARBOR_REDIS_PORT}"
+          password: "${HARBOR_REDIS_PASSWORD}"
         data_volume: /data
         trivy:
           ignore_unfixed: false
@@ -196,31 +199,6 @@ services:
         syslog-address: "tcp://localhost:1514"
         tag: "postgresql"
 
-  redis:
-    image: goharbor/valkey-photon:v2.15.4
-    container_name: ${CONTAINER_NAME}-redis
-    restart: unless-stopped
-    cap_drop:
-      - ALL
-    cap_add:
-      - CHOWN
-      - SETGID
-      - SETUID
-    volumes:
-      - ./data/harbor/redis:/var/lib/redis
-    networks:
-      - 1panel-network
-    depends_on:
-      prepare:
-        condition: service_completed_successfully
-      log:
-        condition: service_started
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://localhost:1514"
-        tag: "redis"
-
   trivy-adapter:
     container_name: ${CONTAINER_NAME}-trivy
     image: goharbor/trivy-adapter-photon:v2.15.4
@@ -231,8 +209,6 @@ services:
       prepare:
         condition: service_completed_successfully
       log:
-        condition: service_started
-      redis:
         condition: service_started
     networks:
       - 1panel-network
@@ -292,8 +268,7 @@ services:
         condition: service_started
       postgresql:
         condition: service_started
-      redis:
-        condition: service_started
+
     logging:
       driver: syslog
       options:
