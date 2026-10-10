@@ -11,7 +11,7 @@ log-level: info
 # RESTful 外部控制器（对应面板映射的「外部控制器端口」，metacubexd 面板连接用）
 external-controller: 0.0.0.0:9090
 # 外置管理台：mihomo 启动时若 /ui/c/metacubexd 为空会自动从下方地址下载
-external-ui: /ui/c/metacubexd
+external-ui: /root/.config/mihomo/ui
 external-ui-url: "https://ghfast.top/https://github.com/MetaCubeX/metacubexd/releases/download/v1.273.1/compressed-dist.tgz"
 # 控制器访问密钥，默认留空；如暴露公网务必设置，并在面板连接时填同样的值
 # secret: "改成你的密钥"

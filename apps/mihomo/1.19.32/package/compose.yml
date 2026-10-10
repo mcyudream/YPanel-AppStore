@@ -6,7 +6,7 @@ services:
     volumes:
       - ./data/mihomo:/root/.config/mihomo
       # 外置管理台（external-ui）：mihomo 启动时缺失会自动从 external-ui-url 下载
-      - ./data/mihomo/ui:/ui/c/metacubexd
+      - ./data/mihomo/ui:/root/.config/mihomo/ui
     ports:
       - "${PANEL_APP_PORT}:7890"
       - "${PANEL_API_PORT}:9090"
