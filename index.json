@@ -365,7 +365,12 @@
             }
           ]
         }
-      ]
+      ],
+      "adminUI": {
+        "port": "PANEL_UI_PORT",
+        "path": "/",
+        "name": "Mihomo 管理台"
+      }
     },
     {
       "id": "element-skin",
@@ -467,7 +472,12 @@
           "releaseNotes": "首版（PHP 应用类型管线验收应用）",
           "env": []
         }
-      ]
+      ],
+      "adminUI": {
+        "port": "PANEL_APP_PORT",
+        "path": "/adminer.php",
+        "name": "Adminer 数据库管理"
+      }
     },
     {
       "id": "blessing-skin",
