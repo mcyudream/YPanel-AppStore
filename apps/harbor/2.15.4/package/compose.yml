@@ -14,12 +14,13 @@ services:
           port: 8080
         harbor_admin_password: "${HARBOR_ADMIN_PASSWORD}"
         external_database:
-          host: "${DATABASE_HOST}"
-          port: "${DATABASE_PORT}"
-          username: "${DATABASE_USER}"
-          password: "${DATABASE_PASSWORD}"
-          db_name: "${DATABASE_NAME}"
-          ssl_mode: disable
+          harbor:
+            host: "${DATABASE_HOST}"
+            port: "${DATABASE_PORT}"
+            username: "${DATABASE_USER}"
+            password: "${DATABASE_PASSWORD}"
+            db_name: "${DATABASE_NAME}"
+            ssl_mode: disable
         external_redis:
           host: "${HARBOR_REDIS_HOST}:${HARBOR_REDIS_PORT}"
           password: "${HARBOR_REDIS_PASSWORD}"
