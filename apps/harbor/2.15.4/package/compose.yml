@@ -91,8 +91,6 @@ services:
       - type: bind
         source: ./common/config/log/rsyslog_docker.conf
         target: /etc/rsyslog.d/rsyslog_docker.conf
-    ports:
-      - 127.0.0.1:1514:10514
     networks:
       - 1panel-network
     depends_on:
@@ -101,7 +99,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://localhost:1514"
+        syslog-address: "tcp://log:10514"
         tag: "harbor-log"
 
   registry:
@@ -133,7 +131,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://localhost:1514"
+        syslog-address: "tcp://log:10514"
         tag: "registry"
 
   registryctl:
@@ -167,7 +165,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://localhost:1514"
+        syslog-address: "tcp://log:10514"
         tag: "registryctl"
 
   postgresql:
@@ -196,7 +194,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://localhost:1514"
+        syslog-address: "tcp://log:10514"
         tag: "postgresql"
 
   trivy-adapter:
@@ -225,7 +223,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://localhost:1514"
+        syslog-address: "tcp://log:10514"
         tag: "trivy-adapter"
     env_file:
       - ./common/config/trivy-adapter/env
@@ -272,7 +270,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://localhost:1514"
+        syslog-address: "tcp://log:10514"
         tag: "core"
 
   portal:
@@ -300,7 +298,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://localhost:1514"
+        syslog-address: "tcp://log:10514"
         tag: "portal"
 
   jobservice:
@@ -333,7 +331,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://localhost:1514"
+        syslog-address: "tcp://log:10514"
         tag: "jobservice"
 
   proxy:
@@ -370,7 +368,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://localhost:1514"
+        syslog-address: "tcp://log:10514"
         tag: "proxy"
 
 networks:
