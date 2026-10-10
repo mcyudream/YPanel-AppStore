@@ -367,8 +367,8 @@
         }
       ],
       "adminUI": {
-        "port": "PANEL_UI_PORT",
-        "path": "/",
+        "port": "PANEL_API_PORT",
+        "path": "/ui/",
         "name": "Mihomo 管理台"
       }
     },
