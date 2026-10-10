@@ -99,8 +99,6 @@ services:
     depends_on:
       prepare:
         condition: service_completed_successfully
-      log:
-        condition: service_started
 
   registryctl:
     image: goharbor/harbor-registryctl:v2.15.4
@@ -128,8 +126,6 @@ services:
     depends_on:
       prepare:
         condition: service_completed_successfully
-      log:
-        condition: service_started
 
 
   trivy-adapter:
@@ -141,8 +137,6 @@ services:
     depends_on:
       prepare:
         condition: service_completed_successfully
-      log:
-        condition: service_started
     networks:
       - 1panel-network
     volumes:
@@ -190,8 +184,6 @@ services:
     depends_on:
       prepare:
         condition: service_completed_successfully
-      log:
-        condition: service_started
       registry:
         condition: service_started
 
@@ -216,8 +208,6 @@ services:
     depends_on:
       prepare:
         condition: service_completed_successfully
-      log:
-        condition: service_started
 
   jobservice:
     image: goharbor/harbor-jobservice:v2.15.4
@@ -270,8 +260,6 @@ services:
     depends_on:
       prepare:
         condition: service_completed_successfully
-      log:
-        condition: service_started
       registry:
         condition: service_started
       core:
