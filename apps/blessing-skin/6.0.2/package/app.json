@@ -28,5 +28,11 @@
     "create": true
   },
   "install": [],
-  "sourceUrl": "assets/blessing-skin-server-6.0.2.zip"
+  "sourceUrl": "assets/blessing-skin-server-6.0.2.zip",
+  "upgrade": {
+    "commands": [
+      "php artisan migrate --force"
+    ],
+    "backup": true
+  }
 }
