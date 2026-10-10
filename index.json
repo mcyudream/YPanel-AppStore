@@ -266,11 +266,11 @@
           "env": [
             {
               "key": "HARBOR_HOSTNAME",
-              "label": "访问主机名（docker login 用 IP 或域名）",
+              "label": "访问主机名",
               "type": "text",
               "default": "harbor.local",
               "required": true,
-              "description": "生成的访问地址为 http://<主机名>:<端口>"
+              "description": "docker login 用 IP 或域名"
             },
             {
               "key": "HARBOR_ADMIN_PASSWORD",
@@ -281,7 +281,36 @@
               "required": true
             },
             {
-              "key": "HARBOR_DB_PASSWORD",
+              "key": "DATABASE_HOST",
+              "label": "PostgreSQL 地址",
+              "type": "text",
+              "default": "",
+              "required": true,
+              "description": "选择纳管 PostgreSQL 实例后自动填充；Harbor 使用外部 PG 存储元数据"
+            },
+            {
+              "key": "DATABASE_PORT",
+              "label": "PostgreSQL 端口",
+              "type": "number",
+              "default": 5432,
+              "required": true
+            },
+            {
+              "key": "DATABASE_NAME",
+              "label": "数据库名",
+              "type": "text",
+              "default": "registry",
+              "required": true
+            },
+            {
+              "key": "DATABASE_USER",
+              "label": "数据库用户",
+              "type": "text",
+              "default": "harbor",
+              "required": true
+            },
+            {
+              "key": "DATABASE_PASSWORD",
               "label": "数据库密码",
               "type": "password",
               "random": true,

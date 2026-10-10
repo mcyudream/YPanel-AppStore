@@ -13,10 +13,13 @@ services:
         http:
           port: 8080
         harbor_admin_password: "${HARBOR_ADMIN_PASSWORD}"
-        database:
-          password: "${HARBOR_DB_PASSWORD}"
-          max_idle_conns: 100
-          max_open_conns: 900
+        external_database:
+          host: "${DATABASE_HOST}"
+          port: "${DATABASE_PORT}"
+          username: "${DATABASE_USER}"
+          password: "${DATABASE_PASSWORD}"
+          db_name: "${DATABASE_NAME}"
+          ssl_mode: disable
         external_redis:
           host: "${HARBOR_REDIS_HOST}:${HARBOR_REDIS_PORT}"
           password: "${HARBOR_REDIS_PASSWORD}"
@@ -72,36 +75,6 @@ services:
       - 1panel-network
     restart: "no"
 
-  log:
-    image: goharbor/harbor-log:v2.15.4
-    container_name: ${CONTAINER_NAME}-log
-    restart: unless-stopped
-    cap_drop:
-      - ALL
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - SETGID
-      - SETUID
-    volumes:
-      - /var/log/harbor/:/var/log/docker/:z
-      - type: bind
-        source: ./common/config/log/logrotate.conf
-        target: /etc/logrotate.d/logrotate.conf
-      - type: bind
-        source: ./common/config/log/rsyslog_docker.conf
-        target: /etc/rsyslog.d/rsyslog_docker.conf
-    networks:
-      - 1panel-network
-    depends_on:
-      prepare:
-        condition: service_completed_successfully
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://log:10514"
-        tag: "harbor-log"
-
   registry:
     image: goharbor/registry-photon:v2.15.4
     container_name: ${CONTAINER_NAME}-registry
@@ -128,11 +101,6 @@ services:
         condition: service_completed_successfully
       log:
         condition: service_started
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://log:10514"
-        tag: "registry"
 
   registryctl:
     image: goharbor/harbor-registryctl:v2.15.4
@@ -162,40 +130,7 @@ services:
         condition: service_completed_successfully
       log:
         condition: service_started
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://log:10514"
-        tag: "registryctl"
 
-  postgresql:
-    image: goharbor/harbor-db:v2.15.4
-    container_name: ${CONTAINER_NAME}-db
-    restart: unless-stopped
-    cap_drop:
-      - ALL
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - SETGID
-      - SETUID
-    volumes:
-      - ./data/harbor/database:/var/lib/postgresql/data:z
-    env_file:
-      - ./common/config/db/env
-    networks:
-      - 1panel-network
-    depends_on:
-      prepare:
-        condition: service_completed_successfully
-      log:
-        condition: service_started
-    shm_size: "1gb"
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://log:10514"
-        tag: "postgresql"
 
   trivy-adapter:
     container_name: ${CONTAINER_NAME}-trivy
@@ -220,11 +155,6 @@ services:
       - type: bind
         source: ./common/config/shared/trust-certificates
         target: /harbor_cust_cert
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://log:10514"
-        tag: "trivy-adapter"
     env_file:
       - ./common/config/trivy-adapter/env
 
@@ -264,14 +194,7 @@ services:
         condition: service_started
       registry:
         condition: service_started
-      postgresql:
-        condition: service_started
 
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://log:10514"
-        tag: "core"
 
   portal:
     image: goharbor/harbor-portal:v2.15.4
@@ -295,11 +218,6 @@ services:
         condition: service_completed_successfully
       log:
         condition: service_started
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://log:10514"
-        tag: "portal"
 
   jobservice:
     image: goharbor/harbor-jobservice:v2.15.4
@@ -328,11 +246,6 @@ services:
         condition: service_completed_successfully
       core:
         condition: service_started
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://log:10514"
-        tag: "jobservice"
 
   proxy:
     image: goharbor/nginx-photon:v2.15.4
@@ -365,11 +278,6 @@ services:
         condition: service_started
       portal:
         condition: service_started
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://log:10514"
-        tag: "proxy"
 
 networks:
   1panel-network:
