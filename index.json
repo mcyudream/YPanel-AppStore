@@ -551,6 +551,142 @@
           "env": []
         }
       ]
+    },
+    {
+      "id": "yudream-admin",
+      "name": "YuDream Admin",
+      "category": "应用平台",
+      "kind": "app",
+      "description": "企业级管理平台：用户权限/CMS/知识库/集成编排/可视化/AI，插件化扩展，安装向导支持 MongoDB/Redis/对象存储纳管复用与可选组件（消息渲染/文件预览/Neo4j）",
+      "author": "YuDream",
+      "arch": [
+        "amd64",
+        "arm64"
+      ],
+      "logo": "apps/yudream-admin/logo.svg",
+      "readme": "apps/yudream-admin/README.md",
+      "website": "https://github.com/mcyudream/YuDream-Admin",
+      "sourceUrl": "https://github.com/mcyudream/YuDream-Admin",
+      "document": "https://ydadocs.yudream.online/",
+      "reverseProxy": "FRONTEND_PORT",
+      "versions": [
+        {
+          "id": "1.0",
+          "package": "apps/yudream-admin/1.0/package",
+          "releaseNotes": "首个商店包：纳管复用（Mongo URI/Redis/S3 建桶）+ 可选组件（render-server/kkfileview/neo4j）",
+          "middleware": [
+            {
+              "type": "s3",
+              "prefix": "S3",
+              "required": true,
+              "label": "对象存储(RustFS/S3)"
+            }
+          ],
+          "optionalServices": [
+            {
+              "id": "render-server",
+              "label": "消息渲染服务",
+              "compose": "compose.render.yml",
+              "env": {
+                "PLATFORM_MESSAGE_RENDER_ENABLED": "true",
+                "MESSAGE_RENDER_BASE_URL": "http://render-server:3000"
+              }
+            },
+            {
+              "id": "kkfileview",
+              "label": "文件预览(kkFileView)",
+              "compose": "compose.kkfileview.yml",
+              "env": {
+                "PLATFORM_FILE_PREVIEW_ENABLED": "true",
+                "FILE_PREVIEW_KKFILEVIEW_INTERNAL_URL": "http://kkfileview:8012"
+              }
+            },
+            {
+              "id": "neo4j",
+              "label": "图数据库(Neo4j)",
+              "compose": "compose.neo4j.yml",
+              "env": {
+                "PLATFORM_NEO4J_ENABLED": "true",
+                "NEO4J_USERNAME": "neo4j"
+              }
+            }
+          ],
+          "env": [
+            {
+              "key": "TAG",
+              "label": "镜像标签",
+              "type": "text",
+              "default": "latest",
+              "required": true
+            },
+            {
+              "key": "BACKEND_PORT",
+              "label": "后端端口",
+              "type": "number",
+              "default": 8080,
+              "required": true,
+              "rule": "paramPort"
+            },
+            {
+              "key": "FRONTEND_PORT",
+              "label": "前端端口",
+              "type": "number",
+              "default": 80,
+              "required": true,
+              "rule": "paramPort"
+            },
+            {
+              "key": "APP_BASE_URL",
+              "label": "后端访问地址",
+              "type": "text",
+              "default": "http://localhost:8080",
+              "required": true
+            },
+            {
+              "key": "APP_WEB_URL",
+              "label": "前端访问地址",
+              "type": "text",
+              "default": "http://localhost",
+              "required": true
+            },
+            {
+              "key": "YUDREAM_CREDENTIAL_KEY",
+              "label": "凭据加密密钥",
+              "type": "password",
+              "random": true,
+              "randomLen": 43,
+              "required": true
+            },
+            {
+              "key": "MAIL_HOST",
+              "label": "邮件服务器",
+              "type": "text",
+              "default": "smtp.qq.com"
+            },
+            {
+              "key": "MAIL_PORT",
+              "label": "邮件端口",
+              "type": "number",
+              "default": 465
+            },
+            {
+              "key": "MAIL_USERNAME",
+              "label": "邮件账号",
+              "type": "text"
+            },
+            {
+              "key": "MAIL_PASSWORD",
+              "label": "邮件密码",
+              "type": "password"
+            },
+            {
+              "key": "MAIL_FROM",
+              "label": "发件人",
+              "type": "text"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

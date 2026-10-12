@@ -1,0 +1,20 @@
+# 可选组件：Neo4j 图数据库（勾选「可选组件」后由安装器合并进主编排并开启平台能力开关；
+# 连接凭据在 YuDream Admin 管理后台「平台能力」中配置，应用自身加密存储）
+services:
+  neo4j:
+    image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/neo4j:5.26.7
+    container_name: ${CONTAINER_NAME}-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: ${NEO4J_USERNAME:-neo4j}/${NEO4J_PASSWORD:-yudream123456}
+    ports:
+      - "${NEO4J_HTTP_PORT:-7474}:7474"
+      - "${NEO4J_BOLT_PORT:-7687}:7687"
+    volumes:
+      - ./data/neo4j:/data
+    networks:
+      - 1panel-network
+
+networks:
+  1panel-network:
+    external: true

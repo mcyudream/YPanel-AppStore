@@ -1,0 +1,21 @@
+# 可选组件：kkFileView 在线文件预览（勾选「可选组件」后由安装器合并进主编排）
+services:
+  kkfileview:
+    image: registry.yudream.online/library/kkfileview:${KKFILEVIEW_TAG:-5.0.2}
+    container_name: ${CONTAINER_NAME}-kkfileview
+    restart: unless-stopped
+    environment:
+      - KK_BASE_URL=${KK_BASE_URL:-default}
+      - KK_TRUST_HOST=${KK_TRUST_HOST:-backend,localhost,127.0.0.1,host.docker.internal}
+      - KK_CACHE_TYPE=${KK_CACHE_TYPE:-jdk}
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+    networks:
+      - 1panel-network
+
+networks:
+  1panel-network:
+    external: true

@@ -36,6 +36,9 @@ apps/<id>/<version>/package/   # 版本包目录（compose.yml + 附属文件，
 | `versions[].package` | 仓库内包目录（git 源）或 tar.gz URL（远程源） |
 | `versions[].env[]` | 参数定义 `{key,label,type(text/number/password/select),default,required,rule}` |
 | `versions[].ports[]` | 端口定义 `{envKey,default}`（自动并入表单字段） |
+| `versions[].middleware[]` | **M68 可复用中间件声明** `{type,prefix,required,label,minVersion}`——安装向导出现「中间件」下拉，只查找复用已有实例（不创建）：`type=s3/neo4j` 走数据库纳管实例（s3 自动建桶），其余类型走「容器 → 中间件」登记实例；选中后 `prefix` 前缀下的应用参数（`*_HOST/_PORT/_USER/_PASSWORD/_ENDPOINT` 等）自动接管注入。`minVersion` 低于基线的实例禁选 |
+| `versions[].optionalServices[]` | **M68 可选伴生服务声明** `{id,label,compose,env}`——安装向导「可选组件」勾选区块：勾选后 `compose`（包内附加 compose 文件，网络占位同主文件）合并进主编排、`env`（如 `PLATFORM_X_ENABLED=true`）注入应用开关 |
+| `versions[].pgExtensions[]` | 纳管 PG 自动创建的扩展（建库后 `CREATE EXTENSION IF NOT EXISTS`） |
 
 ## compose.yml 约定
 

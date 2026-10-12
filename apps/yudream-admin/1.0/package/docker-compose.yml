@@ -1,0 +1,76 @@
+# YuDream Admin（基础编排：backend + frontend）
+# 中间件（Mongo/Redis/S3）建议复用面板纳管实例（安装向导选实例自动注入）；
+# 可选组件（render-server/kkfileview/neo4j）在安装向导「可选组件」勾选后自动并入。
+services:
+  backend:
+    image: ${CI_REGISTRY_IMAGE:-registry.yudream.online/yda}/backend:${TAG:-latest}
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    environment:
+      - SERVER_PORT=8080
+      - APP_BASE_URL=${APP_BASE_URL}
+      - APP_WEB_URL=${APP_WEB_URL}
+      - YUDREAM_SEO_ENABLED=${YUDREAM_SEO_ENABLED:-true}
+      - WEB_LOG_ENABLED=${WEB_LOG_ENABLED:-true}
+      - WEB_LOG_PREFIX=${WEB_LOG_PREFIX:-YuDreamAdmin}
+      - SNOWFLAKE_DCI=${SNOWFLAKE_DCI:-1}
+      - SNOWFLAKE_MI=${SNOWFLAKE_MI:-1}
+      - SYSTEM_SEED_MENU_SYNC_MODE=${SYSTEM_SEED_MENU_SYNC_MODE:-MISSING_ONLY}
+      # 中间件连接（安装向导选纳管实例后自动接管注入）
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_DB=${REDIS_DB:-0}
+      - REDIS_TIMEOUT=${REDIS_TIMEOUT:-2000ms}
+      - MONGO_URI=${MONGO_URI}
+      - MAIL_HOST=${MAIL_HOST:-smtp.qq.com}
+      - MAIL_PORT=${MAIL_PORT:-465}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_FROM=${MAIL_FROM}
+      - MAIL_SSL_ENABLE=${MAIL_SSL_ENABLE:-true}
+      - MAIL_STARTTLS_ENABLE=${MAIL_STARTTLS_ENABLE:-false}
+      - CACHE_KEY_PREFIX=${CACHE_KEY_PREFIX:-yudream}
+      - CACHE_ENABLED=${CACHE_ENABLED:-true}
+      # 平台能力开关（可选组件勾选后由安装器注入开启）
+      - PLATFORM_SSE_ENABLED=${PLATFORM_SSE_ENABLED:-true}
+      - PLATFORM_WEBSOCKET_ENABLED=${PLATFORM_WEBSOCKET_ENABLED:-true}
+      - PLATFORM_RABBITMQ_ENABLED=${PLATFORM_RABBITMQ_ENABLED:-false}
+      - PLATFORM_NEO4J_ENABLED=${PLATFORM_NEO4J_ENABLED:-false}
+      - PLATFORM_AI_ENABLED=${PLATFORM_AI_ENABLED:-true}
+      - PLATFORM_DATAVIZ_ENABLED=${PLATFORM_DATAVIZ_ENABLED:-true}
+      - PLATFORM_MESSAGE_RENDER_ENABLED=${PLATFORM_MESSAGE_RENDER_ENABLED:-false}
+      - MESSAGE_RENDER_BASE_URL=${MESSAGE_RENDER_BASE_URL:-}
+      - MESSAGE_RENDER_TOKEN=${MESSAGE_RENDER_TOKEN:-}
+      - PLATFORM_FILE_PREVIEW_ENABLED=${PLATFORM_FILE_PREVIEW_ENABLED:-false}
+      - FILE_PREVIEW_KKFILEVIEW_INTERNAL_URL=${FILE_PREVIEW_KKFILEVIEW_INTERNAL_URL:-}
+      # 统一加密持久化凭据（安装时随机生成，务必持久化）
+      - YUDREAM_CREDENTIAL_KEY=${YUDREAM_CREDENTIAL_KEY}
+      - YUDREAM_SATORI_CREDENTIAL_KEY=${YUDREAM_SATORI_CREDENTIAL_KEY:-}
+      # 对象存储（S3 兼容：RustFS/MinIO；向导复用实例自动注入）
+      - S3_ENDPOINT=${S3_ENDPOINT}
+      - S3_ACCESS_KEY=${S3_ACCESS_KEY}
+      - S3_SECRET_KEY=${S3_SECRET_KEY}
+      - S3_BUCKET=${S3_BUCKET}
+      - S3_REGION=${S3_REGION:-us-east-1}
+      - S3_PATH_STYLE_ACCESS=${S3_PATH_STYLE_ACCESS:-true}
+    volumes:
+      - ./plugins:/app/plugins
+      - ./market-source:/app/market-source
+    networks:
+      - 1panel-network
+
+  frontend:
+    image: ${CI_REGISTRY_IMAGE:-registry.yudream.online/yda}/frontend:${TAG:-latest}
+    container_name: ${CONTAINER_NAME}1
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    networks:
+      - 1panel-network
+
+networks:
+  1panel-network:
+    external: true
