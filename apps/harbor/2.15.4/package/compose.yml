@@ -68,10 +68,14 @@ services:
         _version: 2.15.0
         EOF
         python3 main.py prepare --conf /tmp/harbor.yml --with-trivy
+        # M69：外部 TLS 终结（面板反代 443）场景校正——prepare 在 http external_url 下生成的
+        # registry htpasswd 模式与带端口的 EXT_ENDPOINT 会让 docker daemon 拉取一律 401
+        python3 /prepare-fix.py
     volumes:
       - ./data/harbor:/data
       - ./common/config:/config
       - ./prepare-out:/compose_location
+      - ./prepare-fix.py:/prepare-fix.py:ro
     networks:
       - 1panel-network
     restart: "no"
