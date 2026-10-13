@@ -1,7 +1,7 @@
 # 可选组件：kkFileView 在线文件预览（勾选「可选组件」后由安装器合并进主编排）
 services:
   kkfileview:
-    image: registry.yudream.online/library/kkfileview:${KKFILEVIEW_TAG:-5.0.2}
+    image: registry.yudream.online/library/kkfileview-go:${KKFILEVIEW_TAG:-5.0.3}
     container_name: ${CONTAINER_NAME}-kkfileview
     restart: unless-stopped
     environment:
