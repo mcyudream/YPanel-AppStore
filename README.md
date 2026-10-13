@@ -2,12 +2,13 @@
 
 [YPanel](https://github.com/mcyudream/ypanel)（YuDream 自研一体化服务器管理面板）的官方应用商店源，yp 格式，以 git 仓库分发（浅克隆 + 本地读包）。
 
-## 双平台镜像（同步更新）
+## 三平台镜像（同步更新）
 
 - GitHub：<https://github.com/mcyudream/YPanel-AppStore.git>
 - Gitee：<https://gitee.com/mcyudream/YPanel-AppStore.git>（国内服务器推荐）
+- GitLab：<https://gitlab.yudream.online/yudream/ypanel-appstore.git>（自建兜底源，内网服务器零外网依赖）
 
-两边内容一致，面板接入时任选其一。
+三边内容一致，面板接入时任选其一。
 
 ## 接入面板
 
@@ -53,10 +54,10 @@ apps/<id>/<version>/package/   # 版本包目录（compose.yml + 附属文件，
 
 ## 维护（提交者）
 
-本地仓库挂双 remote，每次更新同时推送两边，保持一致：
+本地仓库挂三个 remote（origin=GitHub / gitee / gitlab），每次更新同时推送三边，保持一致：
 
 ```bash
-git push origin main && git push gitee main
+git push origin main && git push gitee main && git push gitlab main
 ```
 
 ## 本地联调
